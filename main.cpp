@@ -17,6 +17,7 @@ bool expressValid(string expression){
 		}
 		brackets += expression[x];
 	}
+
 	if (brackets.length() == 0)
 		return true;
 
@@ -26,10 +27,12 @@ bool expressValid(string expression){
 		if (p.size() > 0 && p[p.size()-1] == '(' && brackets[x] == ')'){
 			p.erase(p.begin()+p.size()-1);
 			count++;
-		} else if (p.size() > 0 && p[p.size()-1] == '[' && brackets[x] == ']'){
+		}
+		else if (p.size() > 0 && p[p.size()-1] == '{' && brackets[x] == '}'){
 			p.erase(p.begin()+p.size()-1);
 			count++;
-		} else if (p.size() > 0 && p[p.size()-1] == '{' && brackets[x] == '}'){
+		}
+		else if (p.size() > 0 && p[p.size()-1] == '[' && brackets[x] == ']'){
 			p.erase(p.begin()+p.size()-1);
 			count++;
 		}
@@ -52,14 +55,11 @@ int main(int argc, char* argv[]){
 		return 0;
 	}
 	// argument manager stuff
-	// ArgumentManager am(argc, argv);
-	// string input = am.get("input");
-	// string output = am.get("output");
-	// ifstream ifs(input);
-	// ofstream ofs(output);
-
-	ifstream ifs("input11.txt");
-	ofstream ofs("output.txt");
+	 ArgumentManager am(argc, argv);
+	 string input = am.get("input");
+	 string output = am.get("output");
+	 ifstream ifs(input);
+	 ofstream ofs(output);
 
 	string line="";
 	bool travis = false, scarlett = false, valid = false;
@@ -71,8 +71,7 @@ int main(int argc, char* argv[]){
 		if (line == "Travis") { travis = true; scarlett = false; }
 		else if (line == "Scarlet") { scarlett = true; travis = false; }
 		// if the line is not a name then we check if it is invalid or not. if it is valid then we set valid to true which allows us to add to linkedlists
-		else if (expressValid(line)){ 
-			cout << expressValid(line) << endl;
+		else if (expressValid(line) && line.length() > 0){ 
 			valid = true; 
 		}
 
@@ -86,9 +85,7 @@ int main(int argc, char* argv[]){
 			invalid++;
 		}
 	}
-	cout << invalid << endl;
-
-	cout<<"jason is gei";
+	cout << "Invalid: " << invalid << endl;
 
 	// remember to delete index (amount of invalid) if greater than zero
 	return 0;
