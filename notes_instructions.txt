@@ -1,0 +1,7 @@
+One linkedlist for each twin.
+
+If positive add to respective twin list, else if negative then delete positive number in one or the other.
+
+negative numbers are not added to the lists.
+
+Count of invalid expressions determine which index to delete the number from in the merged linkedlist.
