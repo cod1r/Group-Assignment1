@@ -85,6 +85,8 @@ int main(int argc, char* argv[]){
 	}
 	cout << invalid << endl;
 
+	cout<<"jason is gei";
+
 	// remember to delete index (amount of invalid) if greater than zero
 	return 0;
 }
