@@ -136,24 +136,31 @@ node* operation (string expression)//does math and returns it as a node with dat
 
         numbers.push_back(useOp(a, b, op));
         }
+
+        if(!operators.empty())//gets rid of open brace
+            operators.pop_back();
+
     }
     else//loop finds a regular operator and evaluates it
     {
-        while(!operators.empty())
-        {
-            int a = numbers.back();
-            numbers.pop_back();
+        // while(!operators.empty())
+        // {
+        //     int a = numbers.back();
+        //     numbers.pop_back();
         
-            int b = numbers.back();
-            numbers.pop_back();
+        //     int b = numbers.back();
+        //     numbers.pop_back();
 
-            char op = operators.back();
-            operators.pop_back();
+        //     char op = operators.back();
+        //     operators.pop_back();
 
-            numbers.push_back(useOp(a, b, op));
-        }
+        //     numbers.push_back(useOp(a, b, op));
+        // }
+
+        // operators.push_back(i);
     
     }
+
 }
 
 
@@ -171,6 +178,8 @@ while(!operators.empty())
 
     numbers.push_back(useOp(a, b, op));
 }
+
+
     total = numbers.back();
     result -> number = total;
 
