@@ -71,17 +71,22 @@ int main(int argc, char* argv[]){
 		if (line == "Travis") { travis = true; scarlett = false; }
 		else if (line == "Scarlet") { scarlett = true; travis = false; }
 		// if the line is not a name then we check if it is invalid or not. if it is valid then we set valid to true which allows us to add to linkedlists
-		else if (expressValid(line)){ valid = true; }
+		else if (expressValid(line)){ 
+			cout << expressValid(line) << endl;
+			valid = true; 
+		}
 
 		if (travis && valid){
 			// add to travis
-		} else if (scarlett && valid){
+		}
+		if (scarlett && valid){
 			// add to scarlett
-		} else if(!expressValid(line)) {
+		} else if(!expressValid(line)){
 			// incrementing invalid count
 			invalid++;
 		}
 	}
+	cout << invalid << endl;
 
 	cout<<"jason is gei";
 
