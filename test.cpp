@@ -21,7 +21,7 @@ node *operation(string);
 int main()
 {
     node *list_node = new node();
-    string test = "2+{[(6-9)+9]-4}";
+    string test = "8-{{(1-[0+4]+8)}}";
     parenthesis(test);
     list_node = operation(test);
     list_node->next = nullptr;
@@ -150,13 +150,26 @@ node *operation(string expression) //does math and returns it as a node with dat
             if (!operators.empty()) //gets rid of open brace
                 operators.pop_back();
         }
-        else //adds operator to empty vector
+        else //loop finds a regular operator and evaluates it
         {
+            while (!operators.empty() && operators.back() != '(')
+            {
+                int a = numbers.back();
+                numbers.pop_back();
+
+                int b = numbers.back();
+                numbers.pop_back();
+
+                char op = operators.back();
+                operators.pop_back();
+
+                numbers.push_back(useOp(a, b, op));
+            }
             operators.push_back(i);
         }
     }
 
-    //apply the rest of the operators outside of parenthesis
+    //apply the rest of the operators
     while (!operators.empty())
     {
         int a = numbers.back();
@@ -171,7 +184,7 @@ node *operation(string expression) //does math and returns it as a node with dat
         numbers.push_back(useOp(a, b, op));
     }
 
-    total = numbers.back(); //adds the sum to node number
+    total = numbers.back();
     result->number = total;
 
     return result;
@@ -185,7 +198,7 @@ int useOp(int left, int right, char op)
         return left + right;
         break;
     case '-':
-        return left - right;
+        return right - left;
         break;
     default:
         return 0;
