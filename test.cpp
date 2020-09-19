@@ -130,9 +130,9 @@ node *operation(string expression) //does math and returns it as a node with dat
         {
             numbers.push_back(i - 48);
         } //checks for number
-        else
+        else if (i == ')')
         {
-            //if loop finds closing brace or regular operator, uses all numbers inside brace to evaluate
+            //if loop finds closing brace, uses all numbers inside brace to evaluate
             while (!operators.empty() && operators.back() != '(')
             {
                 int a = numbers.back();
@@ -147,15 +147,26 @@ node *operation(string expression) //does math and returns it as a node with dat
                 numbers.push_back(useOp(a, b, op));
             }
 
-            if (!operators.empty() && i == '(') //gets rid of open brace if it is a closed brace
-            {
+            if (!operators.empty()) //gets rid of open brace
                 operators.pop_back();
-            }
-            else
+        }
+        else //loop finds a regular operator and evaluates it
+        {
+            while (!operators.empty() && operators.back() != '(')
             {
-                operators.push_back(i);
+                int a = numbers.back();
+                numbers.pop_back();
+
+                int b = numbers.back();
+                numbers.pop_back();
+
+                char op = operators.back();
+                operators.pop_back();
+
+                numbers.push_back(useOp(a, b, op));
             }
-                }
+            operators.push_back(i);
+        }
     }
 
     //apply the rest of the operators
