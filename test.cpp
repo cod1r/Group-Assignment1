@@ -21,11 +21,17 @@ node *operation(string);
 int main()
 {
     node *list_node = new node();
+	node* test_node = new node();
     string test = "8-{{(1-[0+4]+8)}}";
+	string test2 = "8-(9+4)+5";
     parenthesis(test);
+	parenthesis(test2);
     list_node = operation(test);
+	test_node = operation(test2);
     list_node->next = nullptr;
-    cout << list_node->number;
+	test_node->next = nullptr;
+    cout << list_node->number << endl;
+	cout << test_node->number << endl;
     return 0;
 }
 
@@ -113,26 +119,27 @@ void parenthesis(string &s) //replaces the brackets and squiggly brackets with p
     return;
 }
 
-node *operation(string expression) //does math and returns it as a node with data
+int operation(string expression) //does math and returns it as a node with data
 {
-    node *result = new node();
-    int total = 0;
     vector<int> numbers;
     vector<char> operators;
 
     for (char i : expression)
     {
+		//checks for number
         if (i == '(')
         {
             operators.push_back(i);
-        } //checks for open brace
+        } 
+		//checks for open brace
         else if (isdigit(i))
         {
             numbers.push_back(i - 48);
-        } //checks for number
+        } 
         else if (i == ')')
         {
             //if loop finds closing brace, uses all numbers inside brace to evaluate
+			//prioritizes parenthesis
             while (!operators.empty() && operators.back() != '(')
             {
                 int a = numbers.back();
@@ -184,10 +191,7 @@ node *operation(string expression) //does math and returns it as a node with dat
         numbers.push_back(useOp(a, b, op));
     }
 
-    total = numbers.back();
-    result->number = total;
-
-    return result;
+    return numbers.back();
 }
 
 int useOp(int left, int right, char op)
