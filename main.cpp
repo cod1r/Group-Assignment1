@@ -44,6 +44,79 @@ bool expressValid(string expression){
 	return false;
 }
 
+int operation(string expression) //does math and returns it as a node with data
+{
+    vector<int> numbers;
+    vector<char> operators;
+
+    for (char i : expression)
+    {
+		//checks for number
+        if (i == '(')
+        {
+            operators.push_back(i);
+        } 
+		//checks for open brace
+        else if (isdigit(i))
+        {
+            numbers.push_back(i - 48);
+        } 
+        else if (i == ')')
+        {
+            //if loop finds closing brace, uses all numbers inside brace to evaluate
+			//prioritizes parenthesis
+            while (!operators.empty() && operators.back() != '(')
+            {
+                int a = numbers.back();
+                numbers.pop_back();
+
+                int b = numbers.back();
+                numbers.pop_back();
+
+                char op = operators.back();
+                operators.pop_back();
+
+                numbers.push_back(useOp(a, b, op));
+            }
+
+            if (!operators.empty()) //gets rid of open brace
+                operators.pop_back();
+        }
+        else //loop finds a regular operator and evaluates it
+        {
+            while (!operators.empty() && operators.back() != '(')
+            {
+                int a = numbers.back();
+                numbers.pop_back();
+
+                int b = numbers.back();
+                numbers.pop_back();
+
+                char op = operators.back();
+                operators.pop_back();
+
+                numbers.push_back(useOp(a, b, op));
+            }
+            operators.push_back(i);
+        }
+    }
+    //apply the rest of the operators
+    while (!operators.empty())
+    {
+        int a = numbers.back();
+        numbers.pop_back();
+
+        int b = numbers.back();
+        numbers.pop_back();
+
+        char op = operators.back();
+        operators.pop_back();
+
+        numbers.push_back(useOp(a, b, op));
+    }
+
+    return numbers.back();
+}
 // jason's future merge function
 
 
