@@ -16,7 +16,7 @@ node *mergesort(node *);
 
 void parenthesis(string &);
 int useOp(int, int, char);
-node *operation(string);
+int operation(string);
 
 int main()
 {
@@ -26,8 +26,8 @@ int main()
 	string test2 = "8-(9+4)+5";
     parenthesis(test);
 	parenthesis(test2);
-    list_node = operation(test);
-	test_node = operation(test2);
+    list_node -> number = operation(test);
+	test_node -> number = operation(test2);
     list_node->next = nullptr;
 	test_node->next = nullptr;
     cout << list_node->number << endl;
